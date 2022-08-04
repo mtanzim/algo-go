@@ -9,6 +9,21 @@ type AcyclicSP struct {
 	distTo []float64
 }
 
+func NewAcyclicLP(g *EdgeWeightedDigraph, s int) (*AcyclicSP, error) {
+	gPrime, err := NewEdgeWeightedDigraph(g.V())
+	if err != nil {
+		return nil, err
+	}
+	for v := 0; v < g.V(); v++ {
+		for _, edge := range g.Adj(v) {
+			edgePrime := NewDirectedEdge(edge.From(), edge.To(), -1*edge.Weight())
+			gPrime.AddEdge(edgePrime)
+		}
+	}
+	return NewAcyclicSP(gPrime, s)
+
+}
+
 func NewAcyclicSP(g *EdgeWeightedDigraph, s int) (*AcyclicSP, error) {
 	edgeTo := make([]*DirectedEdge, g.g.Vertices())
 	distTo := make([]float64, g.g.Vertices())
