@@ -20,7 +20,22 @@ func NewAcyclicLP(g *EdgeWeightedDigraph, s int) (*AcyclicSP, error) {
 			gPrime.AddEdge(edgePrime)
 		}
 	}
-	return NewAcyclicSP(gPrime, s)
+	sp, err := NewAcyclicSP(gPrime, s)
+	if err != nil {
+		return nil, err
+	}
+	edgeToPrime := make([]*DirectedEdge, len(sp.edgeTo))
+	distToPrime := make([]float64, len(sp.distTo))
+
+	for i, edge := range sp.edgeTo {
+		if edge == nil {
+			continue
+		}
+		edgeToPrime[i] = NewDirectedEdge(edge.From(), edge.To(), -1*edge.Weight())
+		distToPrime[i] = -1 * sp.distTo[i]
+	}
+
+	return &AcyclicSP{edgeTo: edgeToPrime, distTo: distToPrime}, nil
 
 }
 
