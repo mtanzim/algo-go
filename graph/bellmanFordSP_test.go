@@ -1,19 +1,18 @@
 package graph
 
 import (
-	"math"
 	"reflect"
 	"testing"
 )
 
 func TestNewBellmanFordSP(t *testing.T) {
-	gCyclic, err := WeightedDigraphFromFile("./fixtures/tinyEWDnc.txt")
-	if err != nil {
-		t.Error("cannot open ./fixtures/tinyEWDnc.txt")
-		return
-	}
-	gCyclicDistToWant := map[int]float64{0: math.Inf(1), 1: 0.32, 2: math.Inf(1), 3: 0.10, 4: -0.66, 5: -0.31, 6: math.Inf(1), 7: -0.29}
-	gCyclicCycleWant := []int{5, 4, 5}
+	// gCyclic, err := WeightedDigraphFromFile("./fixtures/tinyEWDnc.txt")
+	// if err != nil {
+	// 	t.Error("cannot open ./fixtures/tinyEWDnc.txt")
+	// 	return
+	// }
+	// gCyclicDistToWant := map[int]float64{0: math.Inf(1), 1: 0.32, 2: math.Inf(1), 3: 0.10, 4: -0.66, 5: -0.31, 6: math.Inf(1), 7: -0.29}
+	// gCyclicCycleWant := []int{5, 4, 5}
 
 	gAcyclic, err := WeightedDigraphFromFile("./fixtures/tinyEWDn.txt")
 	if err != nil {
@@ -43,7 +42,7 @@ func TestNewBellmanFordSP(t *testing.T) {
 		wantDisto map[int]float64
 		wantErr   bool
 	}{
-		{name: "cyclic", args: args{g: gCyclic, s: 5}, wantCycle: gCyclicCycleWant, wantDisto: gCyclicDistToWant, wantErr: false},
+		// {name: "cyclic", args: args{g: gCyclic, s: 5}, wantCycle: gCyclicCycleWant, wantDisto: gCyclicDistToWant, wantErr: false},
 		{name: "acyclic with path", args: args{g: gAcyclic, s: 0}, wantCycle: gAcyclicCycleWant, wantDisto: gAcyclicDistToWant, wantErr: false},
 	}
 	for _, tt := range tests {

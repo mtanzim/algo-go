@@ -87,6 +87,7 @@ func (sp *BellmanFordSP) relax(g *EdgeWeightedDigraph, v int) {
 		if sp.cost%g.V() == 0 {
 			sp.findNegativeCycle()
 		}
+
 	}
 }
 
