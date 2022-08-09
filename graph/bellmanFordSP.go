@@ -43,13 +43,10 @@ func NewBellmanFordSP(g *EdgeWeightedDigraph, s int) (*BellmanFordSP, error) {
 }
 
 func (sp *BellmanFordSP) hasNegativeCycle() bool {
-	// TODO
-	// return sp.cycle.hasCycle()
-	return false
+	return sp.cycle != nil
 }
 
 func (sp *BellmanFordSP) findNegativeCycle() error {
-	// return errors.New("not implemented yet")
 	numVertices := len(sp.edgeTo)
 	spt, err := NewEdgeWeightedDigraph(numVertices)
 	if err != nil {
@@ -63,6 +60,14 @@ func (sp *BellmanFordSP) findNegativeCycle() error {
 	sp.cycle = NewDirectedCycle[*DirectedEdge](spt.g)
 	return nil
 
+}
+
+func (sp *BellmanFordSP) NegativeCycle() ([]int, error) {
+	cycle, err := sp.cycle.Cycle()
+	if err != nil {
+		return nil, err
+	}
+	return cycle, nil
 }
 
 func (sp *BellmanFordSP) relax(g *EdgeWeightedDigraph, v int) {

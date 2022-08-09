@@ -76,6 +76,18 @@ func (dc *DirectedCycle[T]) dfs(g *Graph[T], v int) {
 
 }
 
+func (dc *DirectedCycle[T]) Cycle() ([]int, error) {
+	cycleCopy := *dc.cycle
+	cycleSlice := []int{}
+	for !cycleCopy.IsEmpty() {
+		curVal, err := cycleCopy.Pop()
+		if err != nil {
+			return nil, err
+		}
+		cycleSlice = append(cycleSlice, curVal)
+	}
+	return cycleSlice, nil
+}
 func (dc *DirectedCycle[T]) String() string {
 
 	var sb strings.Builder
