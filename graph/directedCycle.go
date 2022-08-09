@@ -77,6 +77,9 @@ func (dc *DirectedCycle[T]) dfs(g *Graph[T], v int) {
 }
 
 func (dc *DirectedCycle[T]) Cycle() ([]int, error) {
+	if !dc.hasCycle() {
+		return []int{}, nil
+	}
 	cycleCopy := *dc.cycle
 	cycleSlice := []int{}
 	for !cycleCopy.IsEmpty() {
