@@ -1,7 +1,6 @@
 package graph
 
 import (
-	"errors"
 	"math"
 
 	"github.com/mtanzim/algo-go/queue"
@@ -13,7 +12,7 @@ type BellmanFordSP struct {
 	onQueue []bool
 	queue   *queue.Queue
 	cost    int
-	cycle   DirectedCycle[*DirectedEdge]
+	cycle   *DirectedCycle[*DirectedEdge]
 }
 
 func NewBellmanFordSP(g *EdgeWeightedDigraph, s int) (*BellmanFordSP, error) {
@@ -50,7 +49,20 @@ func (sp *BellmanFordSP) hasNegativeCycle() bool {
 }
 
 func (sp *BellmanFordSP) findNegativeCycle() error {
-	return errors.New("not implemented yet")
+	// return errors.New("not implemented yet")
+	numVertices := len(sp.edgeTo)
+	spt, err := NewEdgeWeightedDigraph(numVertices)
+	if err != nil {
+		return nil
+	}
+	for i := 0; i < numVertices; i++ {
+		if sp.edgeTo[i] != nil {
+			spt.AddEdge(sp.edgeTo[i])
+		}
+	}
+	sp.cycle = NewDirectedCycle[*DirectedEdge](spt.g)
+	return nil
+
 }
 
 func (sp *BellmanFordSP) relax(g *EdgeWeightedDigraph, v int) {
