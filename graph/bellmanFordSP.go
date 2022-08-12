@@ -15,6 +15,7 @@ type BellmanFordSP struct {
 	cycle   *DirectedCycle[*DirectedEdge]
 }
 
+// TODO: this isn't working
 func NewBellmanFordSP(g *EdgeWeightedDigraph, s int) (*BellmanFordSP, error) {
 	edgeTo := make([]*DirectedEdge, g.g.Vertices())
 	onQueue := make([]bool, g.g.Vertices())
