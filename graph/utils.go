@@ -34,6 +34,8 @@ func WeightedGraphFromFile(filepath string) (*EdgeWeightedGraph, error) {
 	return g, nil
 }
 
+// must match the format inferred from here:
+// https://algs4.cs.princeton.edu/42digraph/mediumDG.txt
 func DigraphFromFile(filepath string) (*Graph[UnweightedEdgeType], error) {
 	file, err := os.Open(filepath)
 	if err != nil {
