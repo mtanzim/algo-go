@@ -113,6 +113,34 @@ func (b *BST) Inorder() []*BSTContent {
 	return b.inorder(b.root, []*BSTContent{})
 }
 
+func (b *BST) PostOrder() []*BSTContent {
+	return b.postOrder(b.root, []*BSTContent{})
+}
+
+func (b *BST) PostOrderString() string {
+	return b.postOrderString(b.root, "")
+}
+
+func (b *BST) postOrderString(node *NodeBST, lst string) string {
+	if node == nil {
+		return lst + "|x|"
+	}
+	lst = b.postOrderString(node.left, lst)
+	lst = b.postOrderString(node.right, lst)
+	lst = lst + fmt.Sprintf("|%d|", node.BSTContent.Key)
+	return lst
+}
+
+func (b *BST) postOrder(node *NodeBST, lst []*BSTContent) []*BSTContent {
+	if node == nil {
+		return lst
+	}
+	lst = b.postOrder(node.left, lst)
+	lst = b.postOrder(node.right, lst)
+	lst = append(lst, node.BSTContent)
+	return lst
+}
+
 func (b *BST) Validate() bool {
 	orderedNodes := b.Inorder()
 	isValid := true
@@ -122,6 +150,22 @@ func (b *BST) Validate() bool {
 		}
 	}
 	return isValid
+}
+
+func (b *BST) Successor(node *NodeBST) (*BSTContent, error) {
+	orderedNodes := b.Inorder()
+	foundIdx := -1
+	for i := 0; i < len(orderedNodes); i++ {
+		if orderedNodes[i].Value == node.Value {
+			foundIdx = i
+		}
+	}
+
+	if foundIdx > -1 && foundIdx+1 < len(orderedNodes) {
+		return orderedNodes[foundIdx+1], nil
+	}
+	return nil, errors.New("cannot find successor")
+
 }
 
 func (b *BST) inorder(node *NodeBST, lst []*BSTContent) []*BSTContent {

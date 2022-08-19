@@ -104,6 +104,19 @@ key: 3, value: cats
 	})
 }
 
+func TestBSTPostOrder_String(t *testing.T) {
+	bst, _ := arrangeTree()
+	got := bst.PostOrderString()
+	want :=
+		`|x||x||-9||x||0||x||x||x||3||2||1|`
+	if got != want {
+		t.Errorf("BST.String() = {%v}, want {%v}", got, want)
+	}
+
+	t.Run("stringer", func(t *testing.T) {
+	})
+}
+
 func TestBST_Get(t *testing.T) {
 
 	bst, treeEntries := arrangeTree()
