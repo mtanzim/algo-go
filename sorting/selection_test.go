@@ -1,6 +1,7 @@
 package sorting
 
 import (
+	"fmt"
 	"math/rand"
 	"reflect"
 	"sort"
@@ -66,6 +67,24 @@ func TestSelectionSort(t *testing.T) {
 			if !reflect.DeepEqual(got, b) {
 				t.Errorf("want: %v, got: %v", b, got)
 			}
+		})
+	}
+}
+
+func BenchmarkSelectionSort(b *testing.B) {
+	rand.Seed(time.Now().UnixNano())
+
+	sizes := []int{5, 5 * 10, 5 * 10 * 10, 5 * 10 * 10 * 10}
+	for _, v := range sizes {
+		people := make(ByAge, v)
+		for i := range people {
+			person := Person{}
+			person.Name = randSeq(5)
+			person.Age = rand.Intn(95)
+			people[i] = person
+		}
+		b.Run(fmt.Sprintf("size_%d", v), func(b *testing.B) {
+			SelectionSort(people)
 		})
 	}
 }
