@@ -74,7 +74,7 @@ func TestSelectionSort(t *testing.T) {
 func BenchmarkSelectionSort(b *testing.B) {
 	rand.Seed(time.Now().UnixNano())
 
-	sizes := []int{5, 5 * 10, 5 * 10 * 10, 5 * 10 * 10 * 10}
+	sizes := []int{5, 50, 500, 5_000}
 	for _, v := range sizes {
 		people := make(ByAge, v)
 		for i := range people {
