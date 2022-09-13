@@ -9,12 +9,13 @@ import (
 	"time"
 )
 
-func TestSelectionSort(t *testing.T) {
+func TestInsertionSort(t *testing.T) {
 	type args struct {
 		a byAge
 	}
 
-	people := makePeople(4)
+	rand.Seed(time.Now().UnixNano())
+	people := makePeople(500)
 
 	tests := []struct {
 		name string
@@ -27,7 +28,7 @@ func TestSelectionSort(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := SelectionSort(tt.args.a)
+			got := InsertionSort(tt.args.a)
 
 			b := make(byAge, len(tt.args.a))
 			copy(b, tt.args.a)
@@ -42,14 +43,14 @@ func TestSelectionSort(t *testing.T) {
 	}
 }
 
-func BenchmarkSelectionSort(b *testing.B) {
+func BenchmarkInsertionSort(b *testing.B) {
 	rand.Seed(time.Now().UnixNano())
 
 	sizes := []int{5, 50, 500, 5_000}
 	for _, v := range sizes {
 		people := makePeople(v)
 		b.Run(fmt.Sprintf("size_%d", v), func(b *testing.B) {
-			SelectionSort(people)
+			InsertionSort(people)
 		})
 	}
 }
