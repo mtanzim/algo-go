@@ -10,8 +10,8 @@ func SelectionSort(a sort.Interface) sort.Interface {
 			if a.Less(j, min) {
 				min = j
 			}
-			a.Swap(i, min)
 		}
+		a.Swap(i, min)
 	}
 	return a
 }

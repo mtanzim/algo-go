@@ -14,7 +14,7 @@ func TestSelectionSort(t *testing.T) {
 		a byAge
 	}
 
-	people := makePeople(4)
+	people := makePeople(4000)
 
 	tests := []struct {
 		name string
