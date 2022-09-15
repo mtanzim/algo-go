@@ -17,11 +17,11 @@ func BenchmarkSort(b *testing.B) {
 		"insertion": InsertionSort,
 		"selection": SelectionSort,
 	}
-	for fnName, fn := range sortFns {
+	for fnName, sortFn := range sortFns {
 		for _, v := range sizes {
 			people := makePeople(v)
 			b.Run(fmt.Sprintf("fn_%s_size_%d", fnName, v), func(b *testing.B) {
-				fn(people)
+				sortFn(people)
 			})
 		}
 	}
