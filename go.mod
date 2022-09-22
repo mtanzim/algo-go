@@ -5,6 +5,7 @@ go 1.18
 require (
 	github.com/bradleyjkemp/cupaloy v2.3.0+incompatible
 	github.com/jupp0r/go-priority-queue v0.0.0-20160601094913-ab1073853bde
+	golang.org/x/exp v0.0.0-20220921164117-439092de6870
 )
 
 require (
