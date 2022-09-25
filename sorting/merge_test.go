@@ -14,7 +14,7 @@ func TestMerge(t *testing.T) {
 		args args
 		want []int
 	}{
-		{name: "basic", args: args{a: []int{44, -33, 45}}, want: []int{-33, 44, 45}},
+		{name: "basic", args: args{a: []int{4, 3, 1, 2, 5}}, want: []int{1, 2, 3, 4, 5}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
