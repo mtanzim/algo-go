@@ -1,8 +1,6 @@
 package sorting
 
 import (
-	"fmt"
-
 	"golang.org/x/exp/constraints"
 )
 
@@ -29,7 +27,6 @@ func merge[T constraints.Ordered](a, aux []T, lo, mid, hi int) {
 	for k := lo; k <= hi; k++ {
 		aux[k] = a[k]
 	}
-	fmt.Printf("merging a: %v, lo: %d, mid:%d, hi:%d, aux:%v\n", a, lo, mid, hi, aux)
 
 	i := lo
 	j := mid + 1
