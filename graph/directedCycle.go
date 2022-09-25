@@ -60,7 +60,7 @@ func (dc *DirectedCycle[T]) dfs(g *Graph[T], v int) {
 			dc.edgeTo[neighbor] = v
 			dc.dfs(g, neighbor)
 		} else if dc.onStack[neighbor] {
-			// cycle found, indentify the cycle path
+			// cycle found, identify the cycle path
 			dc.cycle = stack.NewStack(v)
 			next := dc.edgeTo[v]
 			for next != neighbor && next != -1 {
