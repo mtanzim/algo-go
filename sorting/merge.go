@@ -4,7 +4,7 @@ import (
 	"golang.org/x/exp/constraints"
 )
 
-func Merge[T constraints.Ordered](a []T) {
+func MergeSort[T constraints.Ordered](a []T) []T {
 
 	aux := make([]T, len(a))
 	var sort func(a []T, lo, hi int)
@@ -20,6 +20,7 @@ func Merge[T constraints.Ordered](a []T) {
 		merge(a, aux, lo, mid, hi)
 	}
 	sort(a, 0, len(a)-1)
+	return a
 }
 
 func merge[T constraints.Ordered](a, aux []T, lo, mid, hi int) {

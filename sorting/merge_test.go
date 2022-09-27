@@ -39,7 +39,7 @@ func TestMerge(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(fmt.Sprintf("size-%d", tt.size), func(t *testing.T) {
 			arr, arrSorted := makeTestArrs(tt.size)
-			Merge(arr)
+			MergeSort(arr)
 			want := arrSorted
 			if !reflect.DeepEqual(want, arr) {
 				t.Errorf("failed, got: %v, want: %v", arr, want)
