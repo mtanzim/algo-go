@@ -2,6 +2,7 @@ package sorting
 
 import (
 	"math/rand"
+	"sort"
 	"time"
 )
 
@@ -38,4 +39,24 @@ func makePeople(population int) byAge {
 	}
 	return people
 
+}
+
+func makeArr(size int) []int {
+	rand.Seed(time.Now().UnixNano())
+	arr := make([]int, size)
+	for i := range arr {
+		arr[i] = rand.Intn(95)
+	}
+	return arr
+
+}
+
+func makeTestArrs(size int) (arr, arrSorted []int) {
+	arr = makeArr(size)
+	arrSorted = make([]int, size)
+	for i := range arrSorted {
+		arrSorted[i] = arr[i]
+	}
+	sort.Ints(arrSorted)
+	return
 }
