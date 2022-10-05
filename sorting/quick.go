@@ -1,9 +1,14 @@
 package sorting
 
-import "sort"
+import (
+	"math/rand"
+	"sort"
+	"time"
+)
 
 func QuickSort(a sort.Interface) sort.Interface {
-	// TODO: shuffle array
+	rand.Seed(time.Now().UnixNano())
+	rand.Shuffle(a.Len(), a.Swap)
 	quickSort(a, 0, a.Len()-1)
 	return a
 }
