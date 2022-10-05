@@ -28,6 +28,7 @@ func BenchmarkSort(b *testing.B) {
 		"insertion": InsertionSort,
 		"selection": SelectionSort,
 		"merge":     mergeSortWrapped,
+		"quick":     QuickSort,
 	}
 	for fnName, sortFn := range sortFns {
 		for _, v := range sizes {
