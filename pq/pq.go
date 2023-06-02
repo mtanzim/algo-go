@@ -12,11 +12,25 @@ type PQ[T constraints.Ordered] struct {
 	keys    []*T
 	size    int
 	maxSize int
+	lessFn  func(keys []*T, i, j int) bool
+}
+
+func maxPQless[T constraints.Ordered](keys []*T, i, j int) bool {
+	return *keys[i] < *keys[j]
+}
+
+func minPQless[T constraints.Ordered](keys []*T, i, j int) bool {
+	return *keys[i] > *keys[j]
 }
 
 func NewMaxPQ[T constraints.Ordered](maxSize int) *PQ[T] {
 	keys := make([]*T, maxSize+1)
-	return &PQ[T]{keys: keys, size: 0, maxSize: maxSize}
+	return &PQ[T]{keys: keys, size: 0, maxSize: maxSize, lessFn: maxPQless[T]}
+}
+
+func NewMinPQ[T constraints.Ordered](maxSize int) *PQ[T] {
+	keys := make([]*T, maxSize+1)
+	return &PQ[T]{keys: keys, size: 0, maxSize: maxSize, lessFn: minPQless[T]}
 }
 
 func (pq *PQ[T]) IsEmpty() bool {
@@ -34,7 +48,7 @@ func (pq *PQ[T]) Insert(key T) {
 }
 
 func (pq *PQ[T]) swim(k int) {
-	for k > 1 && pq.less(k/2, k) {
+	for k > 1 && pq.lessFn(pq.keys, k/2, k) {
 		pq.exchange(k/2, k)
 		k = k / 2
 	}
@@ -57,20 +71,16 @@ func (pq *PQ[T]) sink(k int) {
 		leftChild := 2 * k
 		rightChild := leftChild + 1
 		chosenChild := leftChild
-		if leftChild < pq.size && pq.less(leftChild, rightChild) {
+		if leftChild < pq.size && pq.lessFn(pq.keys, leftChild, rightChild) {
 			chosenChild = rightChild
 		}
-		if !pq.less(k, chosenChild) {
+		if !pq.lessFn(pq.keys, k, chosenChild) {
 			break
 		}
 		pq.exchange(k, chosenChild)
 		k = chosenChild
 	}
 
-}
-
-func (pq *PQ[T]) less(i, j int) bool {
-	return *pq.keys[i] < *pq.keys[j]
 }
 
 func (pq *PQ[T]) exchange(i, j int) {
